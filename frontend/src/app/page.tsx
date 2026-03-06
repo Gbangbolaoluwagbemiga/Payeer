@@ -316,10 +316,15 @@ export default function Home() {
             </div>
           )}
 
-          {!isConnected && !winner?.name === null && (
-            <p style={{ marginTop: "1rem", fontSize: "0.85rem", color: "rgba(255,255,255,0.4)" }}>
-              Connect wallet to record on Stacks
-            </p>
+          {!isConnected && (
+            <div style={{ marginTop: "1rem" }}>
+              <button className="btn-connect" onClick={connect} style={{ width: "100%" }}>
+                <Wallet size={18} /> Connect to Record On-Chain
+              </button>
+              <p style={{ marginTop: "1rem", fontSize: "0.85rem", color: "rgba(255,255,255,0.4)" }}>
+                Selected fairly by the Payeer wheel
+              </p>
+            </div>
           )}
         </div>
       </div>

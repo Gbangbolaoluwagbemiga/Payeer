@@ -9,7 +9,10 @@ export const metadata: Metadata = {
   title: "Payeer — Who's Paying the Bill?",
   description: "A fun and fair way to decide who pays the bill, powered by Stacks blockchain.",
   icons: {
-    icon: "/favicon.png",
+    icon: [
+      { url: "/favicon.ico", type: "image/x-icon" },
+      { url: "/favicon.png", type: "image/png" },
+    ],
     apple: "/logo.png",
   },
 };
