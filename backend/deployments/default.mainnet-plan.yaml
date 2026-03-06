@@ -1,0 +1,18 @@
+---
+id: 0
+name: Mainnet deployment
+network: mainnet
+stacks-node: "https://api.hiro.so"
+bitcoin-node: "http://blockstack:blockstacksystem@bitcoin.blockstack.com:8332"
+plan:
+  batches:
+    - id: 0
+      transactions:
+        - contract-publish:
+            contract-name: payeer
+            expected-sender: SP2HFZ1MN9CNWX2X7MY8273HC04YAS8WE5MQZEYJB
+            cost: 25600
+            path: contracts/payeer.clar
+            anchor-block-only: true
+            clarity-version: 4
+      epoch: "3.3"

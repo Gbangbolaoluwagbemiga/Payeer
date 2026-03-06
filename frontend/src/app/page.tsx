@@ -1,112 +1,276 @@
+"use client";
+
+import { useState } from "react";
+import { Plus, Trash2, X, RefreshCw, Wallet, LogOut, Sparkles, CheckCircle } from "lucide-react";
+import { useWallet } from "./WalletProvider";
 import Image from "next/image";
 
-export default function Home() {
+const COLORS = [
+  "#8a2be2", "#ff3b3b", "#00c9c9", "#ff00aa",
+  "#ffd700", "#00d48a", "#ff6600", "#5591f5",
+];
+
+function SpinnerWheel({
+  friends,
+  rotation,
+}: {
+  friends: { id: string; name: string }[];
+  rotation: number;
+}) {
+  const size = 300;
+  const cx = size / 2;
+  const cy = size / 2;
+  const r = size / 2 - 4;
+
+  if (friends.length === 0) {
+    return (
+      <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`}>
+        <circle cx={cx} cy={cy} r={r} fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.1)" strokeWidth="2" />
+        <text x={cx} y={cy} textAnchor="middle" dominantBaseline="middle" fill="rgba(255,255,255,0.3)" fontSize="16" fontFamily="Outfit,sans-serif">
+          Empty
+        </text>
+      </svg>
+    );
+  }
+
+  const sliceAngle = 360 / friends.length;
+
+  function polarToCartesian(angleDeg: number, radius: number) {
+    const rad = ((angleDeg - 90) * Math.PI) / 180;
+    return {
+      x: cx + radius * Math.cos(rad),
+      y: cy + radius * Math.sin(rad),
+    };
+  }
+
+  function slicePath(startAngle: number, endAngle: number) {
+    const start = polarToCartesian(startAngle, r);
+    const end = polarToCartesian(endAngle, r);
+    const largeArc = endAngle - startAngle > 180 ? 1 : 0;
+    return `M ${cx} ${cy} L ${start.x} ${start.y} A ${r} ${r} 0 ${largeArc} 1 ${end.x} ${end.y} Z`;
+  }
+
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">src/app/page.tsx</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:size-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
+    <svg
+      width={size}
+      height={size}
+      viewBox={`0 0 ${size} ${size}`}
+      style={{ transform: `rotate(${rotation}deg)`, transition: "transform 5s cubic-bezier(0.1,0.8,0.1,1)" }}
+    >
+      {friends.map((friend, i) => {
+        const startAngle = i * sliceAngle;
+        const endAngle = startAngle + sliceAngle;
+        const midAngle = startAngle + sliceAngle / 2;
+        const textPos = polarToCartesian(midAngle, r * 0.62);
+
+        // Clamp text: max 8 chars per line
+        const displayName = friend.name.length > 9 ? friend.name.slice(0, 8) + "…" : friend.name;
+
+        return (
+          <g key={friend.id}>
+            <path
+              d={slicePath(startAngle, endAngle)}
+              fill={COLORS[i % COLORS.length]}
+              stroke="rgba(0,0,0,0.3)"
+              strokeWidth="1.5"
             />
-          </a>
+            <text
+              x={textPos.x}
+              y={textPos.y}
+              textAnchor="middle"
+              dominantBaseline="middle"
+              fill="white"
+              fontSize={friends.length > 6 ? "11" : "13"}
+              fontWeight="700"
+              fontFamily="Outfit,sans-serif"
+              style={{ pointerEvents: "none", textShadow: "0 1px 4px rgba(0,0,0,0.8)" }}
+              transform={`rotate(${midAngle}, ${textPos.x}, ${textPos.y})`}
+            >
+              {displayName}
+            </text>
+          </g>
+        );
+      })}
+      {/* Center hub */}
+      <circle cx={cx} cy={cy} r={14} fill="#1a1a2e" stroke="rgba(255,255,255,0.2)" strokeWidth="2" />
+      <circle cx={cx} cy={cy} r={7} fill="var(--accent, #00f0ff)" opacity="0.8" />
+    </svg>
+  );
+}
+
+export default function Home() {
+  const { address, isConnected, connect, disconnect } = useWallet();
+  const [friends, setFriends] = useState<{ id: string; name: string }[]>([]);
+  const [newName, setNewName] = useState("");
+  const [spinning, setSpinning] = useState(false);
+  const [rotation, setRotation] = useState(0);
+  const [winner, setWinner] = useState<string | null>(null);
+
+  const addFriend = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (newName.trim() === "") return;
+    setFriends([...friends, { id: crypto.randomUUID(), name: newName.trim() }]);
+    setNewName("");
+  };
+
+  const removeFriend = (id: string) => {
+    setFriends(friends.filter((f) => f.id !== id));
+  };
+
+  const spinWheel = () => {
+    if (friends.length < 2 || spinning) return;
+    setSpinning(true);
+    setWinner(null);
+
+    const spins = 5 + Math.floor(Math.random() * 5);
+    const sliceAngle = 360 / friends.length;
+    // Pick a random winner first, then calculate degree to land on that slice
+    const winnerIdx = Math.floor(Math.random() * friends.length);
+    // Land on the middle of the winning slice
+    const targetAngle = 360 - (winnerIdx * sliceAngle + sliceAngle / 2);
+    const totalRotation = rotation + spins * 360 + targetAngle - (rotation % 360);
+
+    setRotation(totalRotation);
+
+    setTimeout(() => {
+      setWinner(friends[winnerIdx].name);
+      setSpinning(false);
+    }, 5200);
+  };
+
+  const closeWinner = () => setWinner(null);
+
+  const shortAddress = address ? `${address.slice(0, 6)}...${address.slice(-4)}` : null;
+
+  return (
+    <main className="container">
+      {/* Header */}
+      <div className="header-bar">
+        <div className="logo-wrap">
+          <div className="logo-spin-wrapper">
+            <Image src="/logo.png" alt="Payeer Logo" width={40} height={40} className="logo-img" />
+          </div>
+          <span className="logo-text">Payeer</span>
+        </div>
+        <div className="wallet-connect">
+          {isConnected ? (
+            <div className="wallet-connected">
+              <span className="wallet-address">
+                <span className="wallet-dot" />
+                {shortAddress}
+              </span>
+              <button className="btn-secondary btn-sm" onClick={disconnect} title="Disconnect">
+                <LogOut size={16} />
+              </button>
+            </div>
+          ) : (
+            <button className="btn-connect" onClick={connect}>
+              <Wallet size={18} />
+              Connect Wallet
+            </button>
+          )}
         </div>
       </div>
 
-      <div className="relative z-[-1] flex place-items-center before:absolute before:h-[300px] before:w-full before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-full after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 sm:before:w-[480px] sm:after:w-[240px] before:lg:h-[360px]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
+      {/* Hero */}
+      <div className="hero">
+        <h1>Who&apos;s Paying?</h1>
+        <p>Add your friends, spin the wheel, and let fate decide — recorded forever on Stacks.</p>
       </div>
 
-      <div className="mb-32 grid text-center lg:mb-0 lg:w-full lg:max-w-5xl lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Docs{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
+      <div className="main-content">
+        {/* Friends Panel */}
+        <div className="panel">
+          <h2>1. Add Friends</h2>
+          <form onSubmit={addFriend} style={{ marginTop: "1.5rem" }}>
+            <div className="input-group">
+              <input
+                type="text"
+                placeholder="Enter friend's name..."
+                value={newName}
+                onChange={(e) => setNewName(e.target.value)}
+                maxLength={20}
+              />
+              <button type="submit">
+                <Plus size={20} />
+              </button>
+            </div>
+          </form>
 
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Learn{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
+          {friends.length > 0 && (
+            <ul className="friends-list">
+              {friends.map((friend, idx) => (
+                <li key={friend.id} className="friend-item">
+                  <div className="friend-name">
+                    <span
+                      style={{
+                        width: 12, height: 12, borderRadius: "50%",
+                        backgroundColor: COLORS[idx % COLORS.length],
+                        display: "inline-block", flexShrink: 0,
+                      }}
+                    />
+                    {friend.name}
+                  </div>
+                  <button className="btn-danger" onClick={() => removeFriend(friend.id)} type="button">
+                    <Trash2 size={18} />
+                  </button>
+                </li>
+              ))}
+            </ul>
+          )}
 
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Templates{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Explore starter templates for Next.js.
-          </p>
-        </a>
+          {friends.length < 2 && (
+            <div className="hint-text">Add at least 2 friends to spin the wheel</div>
+          )}
+        </div>
 
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Deploy{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-balance text-sm opacity-50">
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
+        {/* Spinner Panel */}
+        <div className="panel">
+          <h2>2. Spin The Wheel</h2>
+          <div className="spinner-container" style={{ marginTop: "1.5rem" }}>
+            {/* Pointer */}
+            <div className="wheel-pointer" />
+            {/* SVG wheel — no manual overflow wrapper needed */}
+            <div className="wheel-frame" style={{ overflow: "visible", border: "none", background: "none" }}>
+              <SpinnerWheel friends={friends} rotation={rotation} />
+            </div>
+
+            <button
+              className={`btn-spin ${!spinning && friends.length >= 2 ? "pulse-animation" : ""}`}
+              onClick={spinWheel}
+              disabled={friends.length < 2 || spinning}
+            >
+              {spinning ? (
+                <><RefreshCw size={20} className="spin-icon" /> Spinning...</>
+              ) : (
+                <><Sparkles size={20} /> Let&apos;s Spin!</>
+              )}
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Winner Modal */}
+      <div className={`winner-overlay ${winner ? "show" : ""}`}>
+        <div className="winner-card">
+          <div className="winner-emoji">🎉</div>
+          <h2>Time to pay up!</h2>
+          <div className="winner-name">{winner}</div>
+          <p style={{ margin: "0 0 2rem", color: "rgba(255,255,255,0.7)" }}>
+            Selected fairly by the Payeer wheel
           </p>
-        </a>
+          <div style={{ display: "flex", gap: "1rem", justifyContent: "center", flexWrap: "wrap" }}>
+            <button onClick={closeWinner}><X size={18} /> Close</button>
+            {isConnected && (
+              <button className="btn-secondary"><CheckCircle size={18} /> Record on Stacks</button>
+            )}
+          </div>
+          {!isConnected && (
+            <p style={{ marginTop: "1rem", fontSize: "0.85rem", color: "rgba(255,255,255,0.4)" }}>
+              Connect your wallet to record this result on-chain
+            </p>
+          )}
+        </div>
       </div>
     </main>
   );
