@@ -12,9 +12,12 @@ export const metadata: Metadata = {
   description: "A fun and fair way to decide who pays the bill, powered by Stacks blockchain.",
   metadataBase: new URL(domain),
   icons: {
-    icon: "/favicon.ico",
+    icon: [
+      { url: "/favicon.ico" },
+      { url: "/icon.png", type: "image/png" },
+    ],
     shortcut: "/favicon.ico",
-    apple: "/logo.png",
+    apple: "/apple-icon.png",
   },
   openGraph: {
     title: "Payeer — Who's Paying the Bill?",
@@ -23,9 +26,10 @@ export const metadata: Metadata = {
     siteName: "Payeer",
     images: [
       {
-        url: "/logo.png",
+        url: `${domain}/logo.png`,
         width: 1024,
         height: 1024,
+        alt: "Payeer Logo",
       },
     ],
     locale: "en_US",
@@ -35,7 +39,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Payeer — Who's Paying the Bill?",
     description: "A fun and fair way to decide who pays the bill, powered by Stacks blockchain.",
-    images: ["/logo.png"],
+    images: [`${domain}/logo.png`],
   },
   other: {
     "talentapp:project_verification": "7e0fb0c25f67ec416751dee3fdadcce53c19b3b40deaa86e8a33957d688bd0a606e26ac0433302f4c9950cb3525dd2dc71a847d9b6d5f9db84d75733b7fec597"
