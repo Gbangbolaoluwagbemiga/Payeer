@@ -1,5 +1,5 @@
 import { generateWallet } from '@stacks/wallet-sdk';
-import { getAddressFromPrivateKey, TransactionVersion } from '@stacks/transactions';
+import { getAddressFromPrivateKey, AddressVersion } from '@stacks/transactions';
 import * as dotenv from 'dotenv';
 import * as fs from 'fs';
 import * as path from 'path';
@@ -17,7 +17,7 @@ async function main() {
 
         for (let i = 0; i < 5; i++) {
             const privateKey = wallet.accounts[i].stxPrivateKey;
-            const address = getAddressFromPrivateKey(privateKey, TransactionVersion.Mainnet);
+            const address = getAddressFromPrivateKey(privateKey, 'mainnet');
             console.log(`Account ${i} Address: ${address}`);
             console.log(`Account ${i} Private Key: ${privateKey}`);
         }
