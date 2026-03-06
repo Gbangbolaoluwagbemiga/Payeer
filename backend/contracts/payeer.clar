@@ -92,3 +92,7 @@
 (define-read-only (get-participant (session-id uint) (participant-id uint))
   (map-get? SessionParticipants { session-id: session-id, participant-id: participant-id })
 )
+
+(define-read-only (get-session-counter)
+  (ok (var-get session-counter))
+)
