@@ -9,12 +9,13 @@ export const metadata: Metadata = {
   title: "Payeer — Who's Paying the Bill?",
   description: "A fun and fair way to decide who pays the bill, powered by Stacks blockchain.",
   icons: {
-    icon: [
-      { url: "/favicon.ico", type: "image/x-icon" },
-      { url: "/favicon.png", type: "image/png" },
-    ],
+    icon: "/favicon.ico",
+    shortcut: "/favicon.ico",
     apple: "/logo.png",
   },
+  other: {
+    "talentapp:project_verification": "7e0fb0c25f67ec416751dee3fdadcce53c19b3b40deaa86e8a33957d688bd0a606e26ac0433302f4c9950cb3525dd2dc71a847d9b6d5f9db84d75733b7fec597"
+  }
 };
 
 export default function RootLayout({
