@@ -2,7 +2,6 @@
 
 Payeer is a sleek, modern, and on-chain bill-splitting application built on the **Stacks** blockchain. It provides a fun and transparent way to decide "who's paying" by letting a decentralized spinner wheel make the choice.
 
-![Payeer Logo](frontend/public/logo.png)
 
 ## 🌟 Features
 
