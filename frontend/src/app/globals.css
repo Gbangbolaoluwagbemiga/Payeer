@@ -505,3 +505,49 @@ button:disabled {
     max-width: 100%;
   }
 }
+
+.tx-success {
+  margin-top: 1.5rem;
+  padding: 1rem;
+  background: rgba(0, 255, 136, 0.1);
+  border: 1px solid rgba(0, 255, 136, 0.2);
+  border-radius: 12px;
+  animation: fadeIn 0.5s ease-out;
+}
+
+.tx-success p {
+  color: #00ff88;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  font-size: 0.95rem;
+  text-align: center;
+}
+
+.explorer-link {
+  color: var(--accent);
+  text-decoration: none;
+  font-size: 0.9rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: opacity 0.2s;
+  justify-content: center;
+  width: 100%;
+}
+
+.explorer-link:hover {
+  opacity: 0.8;
+  text-decoration: underline;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
