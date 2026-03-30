@@ -91,3 +91,8 @@ function SpinnerWheel({
               style={{ pointerEvents: "none", textShadow: "0 1px 4px rgba(0,0,0,0.8)" }}
               transform={`rotate(${midAngle}, ${textPos.x}, ${textPos.y})`}
             >
+              {displayName}
+            </text>
+          </g>
+        );
+      })}
