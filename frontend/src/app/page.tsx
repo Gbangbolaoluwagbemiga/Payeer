@@ -190,3 +190,8 @@ export default function Home() {
           <span className="logo-text">Payeer</span>
         </div>
         <div className="wallet-connect">
+          {isConnected ? (
+            <div className="wallet-connected">
+              <span className="wallet-address">
+                <span className="wallet-dot" />
+                {shortAddress}
