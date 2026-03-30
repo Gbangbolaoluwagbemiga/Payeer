@@ -283,3 +283,9 @@ export default function Home() {
       </div>
 
       <div className={`winner-overlay ${winner ? "show" : ""}`}>
+        <div className="winner-card">
+          <div className="winner-emoji">🎉</div>
+          <h2>Payer Selected!</h2>
+          <div className="winner-name">{winner?.name}</div>
+          <p style={{ margin: "0 0 2rem", color: "rgba(255,255,255,0.7)" }}>
+            Time to pay the bill!
