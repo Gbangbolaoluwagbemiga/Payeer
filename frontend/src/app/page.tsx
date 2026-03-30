@@ -261,3 +261,9 @@ export default function Home() {
 
         <div className="panel">
           <h2>2. Spin The Wheel</h2>
+          <div className="spinner-container" style={{ marginTop: "1.5rem" }}>
+            <div className="wheel-pointer" />
+            <div className="wheel-frame" style={{ overflow: "visible", border: "none", background: "none" }}>
+              <SpinnerWheel friends={friends} rotation={rotation} />
+            </div>
+
