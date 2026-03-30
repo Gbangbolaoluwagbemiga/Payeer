@@ -1,1 +1,7 @@
 {
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "check contracts",
+      "group": "test",
+      "type": "shell",
