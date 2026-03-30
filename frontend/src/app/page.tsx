@@ -184,3 +184,9 @@ export default function Home() {
     <main className="container">
       <div className="header-bar">
         <div className="logo-wrap">
+          <div className="logo-spin-wrapper">
+            <Image src="/logo.png" alt="Payeer Logo" width={40} height={40} className="logo-img" />
+          </div>
+          <span className="logo-text">Payeer</span>
+        </div>
+        <div className="wallet-connect">
