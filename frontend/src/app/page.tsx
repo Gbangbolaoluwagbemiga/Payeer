@@ -256,3 +256,8 @@ export default function Home() {
 
           {friends.length < 2 && (
             <div className="hint-text">Add at least 2 friends to spin</div>
+          )}
+        </div>
+
+        <div className="panel">
+          <h2>2. Spin The Wheel</h2>
