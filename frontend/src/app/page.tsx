@@ -31,3 +31,8 @@ function SpinnerWheel({
   if (friends.length === 0) {
     return (
       <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`}>
+        <circle cx={cx} cy={cy} r={r} fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.1)" strokeWidth="2" />
+        <text x={cx} y={cy} textAnchor="middle" dominantBaseline="middle" fill="rgba(255,255,255,0.3)" fontSize="16" fontFamily="Outfit,sans-serif">
+          Empty
+        </text>
+      </svg>
