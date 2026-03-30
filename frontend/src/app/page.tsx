@@ -124,3 +124,8 @@ export default function Home() {
   };
 
   const spinWheel = () => {
+    if (friends.length < 2 || spinning) return;
+    setSpinning(true);
+    setWinner(null);
+    setTxId(null);
+
