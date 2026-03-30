@@ -102,3 +102,8 @@ function SpinnerWheel({
   );
 }
 
+export default function Home() {
+  const { address, isConnected, connect, disconnect } = useWallet();
+  const [friends, setFriends] = useState<{ id: string; name: string }[]>([]);
+  const [newName, setNewName] = useState("");
+  const [spinning, setSpinning] = useState(false);
