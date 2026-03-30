@@ -146,3 +146,8 @@ export default function Home() {
   const recordResult = async () => {
     if (!winner || !isConnected || recording) return;
     setRecording(true);
+
+    try {
+      await openContractCall({
+        contractAddress: CONTRACT_ADDRESS,
+        contractName: CONTRACT_NAME,
