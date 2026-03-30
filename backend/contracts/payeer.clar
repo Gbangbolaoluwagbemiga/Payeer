@@ -36,3 +36,8 @@
       reason: reason,
       is-resolved: false,
       chosen-payer: none,
+      participants-count: u0
+    })
+    (ok session-id)
+  )
+)
