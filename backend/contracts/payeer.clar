@@ -74,3 +74,9 @@
     (asserts! (is-eq tx-sender (get creator session)) (err u403))
     (asserts! (not (get is-resolved session)) (err u400))
     (asserts! (> count u0) (err u400))
+    
+    (map-set Sessions session-id (merge session {
+      is-resolved: true,
+      chosen-payer: (some chosen-participant)
+    }))
+    
