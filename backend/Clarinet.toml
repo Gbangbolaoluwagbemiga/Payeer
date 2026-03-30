@@ -1,0 +1,6 @@
+[project]
+name = 'backend'
+description = ''
+authors = []
+telemetry = false
+cache_dir = './.cache'
