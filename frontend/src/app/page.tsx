@@ -278,3 +278,8 @@ export default function Home() {
                 <><Sparkles size={20} /> Let&apos;s Spin!</>
               )}
             </button>
+          </div>
+        </div>
+      </div>
+
+      <div className={`winner-overlay ${winner ? "show" : ""}`}>
