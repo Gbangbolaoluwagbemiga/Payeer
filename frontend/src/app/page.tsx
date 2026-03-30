@@ -20,3 +20,8 @@ function SpinnerWheel({
   friends,
   rotation,
 }: {
+  friends: { id: string; name: string }[];
+  rotation: number;
+}) {
+  const size = 300;
+  const cx = size / 2;
