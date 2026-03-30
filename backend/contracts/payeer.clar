@@ -25,3 +25,8 @@
 
 ;; create a new session
 (define-public (create-session (amount uint) (reason (string-ascii 50)))
+  (let
+    (
+      (session-id (+ (var-get session-counter) u1))
+    )
+    (var-set session-counter session-id)
