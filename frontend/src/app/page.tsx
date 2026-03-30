@@ -234,3 +234,8 @@ export default function Home() {
 
           {friends.length > 0 && (
             <ul className="friends-list">
+              {friends.map((friend, idx) => (
+                <li key={friend.id} className="friend-item">
+                  <div className="friend-name">
+                    <span
+                      style={{
