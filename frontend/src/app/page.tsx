@@ -239,3 +239,9 @@ export default function Home() {
                   <div className="friend-name">
                     <span
                       style={{
+                        width: 12, height: 12, borderRadius: "50%",
+                        backgroundColor: COLORS[idx % COLORS.length],
+                        display: "inline-block", flexShrink: 0,
+                      }}
+                    />
+                    {friend.name}
