@@ -5,3 +5,8 @@
       "label": "check contracts",
       "group": "test",
       "type": "shell",
+      "command": "clarinet check"
+    },
+    {
+      "type": "npm",
+      "script": "test",
