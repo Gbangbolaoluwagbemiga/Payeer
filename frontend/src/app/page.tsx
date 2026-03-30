@@ -217,3 +217,9 @@ export default function Home() {
       <div className="main-content">
         <div className="panel">
           <h2>1. Add Friends</h2>
+          <form onSubmit={addFriend} style={{ marginTop: "1.5rem" }}>
+            <div className="input-group">
+              <input
+                type="text"
+                placeholder="Enter friend's name..."
+                value={newName}
