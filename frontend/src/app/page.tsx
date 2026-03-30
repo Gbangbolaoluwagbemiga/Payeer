@@ -140,3 +140,9 @@ export default function Home() {
     setTimeout(() => {
       setWinner({ name: friends[winnerIdx].name, index: winnerIdx });
       setSpinning(false);
+    }, 5200);
+  };
+
+  const recordResult = async () => {
+    if (!winner || !isConnected || recording) return;
+    setRecording(true);
