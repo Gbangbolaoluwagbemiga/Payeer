@@ -80,3 +80,8 @@ function SpinnerWheel({
               strokeWidth="1.5"
             />
             <text
+              x={textPos.x}
+              y={textPos.y}
+              textAnchor="middle"
+              dominantBaseline="middle"
+              fill="white"
