@@ -267,3 +267,8 @@ export default function Home() {
               <SpinnerWheel friends={friends} rotation={rotation} />
             </div>
 
+            <button
+              className={`btn-spin ${!spinning && friends.length >= 2 ? "pulse-animation" : ""}`}
+              onClick={spinWheel}
+              disabled={friends.length < 2 || spinning}
+            >
