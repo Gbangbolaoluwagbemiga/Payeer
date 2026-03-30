@@ -37,3 +37,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={outfit.className}>
+        <WalletProvider>
+          {children}
+        </WalletProvider>
+      </body>
+    </html>
