@@ -272,3 +272,9 @@ export default function Home() {
               onClick={spinWheel}
               disabled={friends.length < 2 || spinning}
             >
+              {spinning ? (
+                <><RefreshCw size={20} className="spin-icon" /> Spinning...</>
+              ) : (
+                <><Sparkles size={20} /> Let&apos;s Spin!</>
+              )}
+            </button>
