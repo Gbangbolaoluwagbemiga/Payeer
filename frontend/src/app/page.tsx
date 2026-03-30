@@ -9,3 +9,8 @@ import { uintCV, stringAsciiCV, principalCV } from "@stacks/transactions";
 import { STACKS_MAINNET } from "@stacks/network";
 
 const CONTRACT_ADDRESS = "SP3BHPVZEKANVD62KDME41G0E02KGPMKRANWF5PQK";
+const CONTRACT_NAME = "payeer";
+
+const COLORS = [
+  "#8a2be2", "#ff3b3b", "#00c9c9", "#ff00aa",
+  "#ffd700", "#00d48a", "#ff6600", "#5591f5",
