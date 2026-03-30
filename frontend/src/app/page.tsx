@@ -245,3 +245,8 @@ export default function Home() {
                       }}
                     />
                     {friend.name}
+                  </div>
+                  <button className="btn-danger" onClick={() => removeFriend(friend.id)} type="button">
+                    <Trash2 size={18} />
+                  </button>
+                </li>
