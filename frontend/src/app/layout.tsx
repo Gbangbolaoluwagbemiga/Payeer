@@ -15,3 +15,8 @@ export const metadata: Metadata = {
     title: "Payeer — Who's Paying the Bill?",
     description: "A fun and fair way to decide who pays the bill, powered by Stacks blockchain.",
     url: domain,
+    siteName: "Payeer",
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
