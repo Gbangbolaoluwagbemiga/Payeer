@@ -173,3 +173,9 @@ export default function Home() {
     }
   };
 
+  const closeWinner = () => {
+    setWinner(null);
+    setTxId(null);
+  };
+
+  const shortAddress = address ? `${address.slice(0, 6)}...${address.slice(-4)}` : null;
