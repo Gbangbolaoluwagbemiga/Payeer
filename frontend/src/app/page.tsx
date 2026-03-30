@@ -162,3 +162,9 @@ export default function Home() {
           setTxId(data.txId);
           setRecording(false);
         },
+        onCancel: () => {
+          console.log("Transaction cancelled");
+          setRecording(false);
+        },
+      });
+    } catch (e) {
