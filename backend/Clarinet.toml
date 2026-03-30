@@ -15,3 +15,8 @@ passes = [
     'call_checker',
 ]
 
+[repl.analysis.lint_groups]
+
+[repl.analysis.lints]
+
+[repl.analysis.check_checker]
