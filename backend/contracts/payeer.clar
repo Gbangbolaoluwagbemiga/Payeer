@@ -14,3 +14,8 @@
     participants-count: uint
   }
 )
+
+(define-map SessionParticipants
+  { session-id: uint, participant-id: uint }
+  {
+    participant-principal: principal,
