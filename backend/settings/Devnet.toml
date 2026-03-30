@@ -113,3 +113,9 @@ disable_stacks_api = false
 # postgres_database = "postgres"
 # bitcoin_node_image_url = "lncm/bitcoind:v27.2"
 # stacks_node_image_url = "blockstack/stacks-blockchain:3.3.0.0.4-alpine"
+# stacks_signer_image_url = "blockstack/stacks-signer:3.3.0.0.4.0-alpine"
+# stacks_api_image_url = "hirosystems/stacks-blockchain-api:latest"
+# stacks_explorer_image_url = "hirosystems/explorer:latest"
+# bitcoin_explorer_image_url = "quay.io/hirosystems/bitcoin-explorer:devnet"
+# postgres_image_url = "postgres:alpine"
+
