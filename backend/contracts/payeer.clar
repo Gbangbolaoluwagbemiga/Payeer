@@ -80,3 +80,8 @@
       chosen-payer: (some chosen-participant)
     }))
     
+    (ok true)
+  )
+)
+
+;; Read only functions
