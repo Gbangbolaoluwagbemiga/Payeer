@@ -74,3 +74,9 @@ function SpinnerWheel({
         return (
           <g key={friend.id}>
             <path
+              d={slicePath(startAngle, endAngle)}
+              fill={COLORS[i % COLORS.length]}
+              stroke="rgba(0,0,0,0.3)"
+              strokeWidth="1.5"
+            />
+            <text
