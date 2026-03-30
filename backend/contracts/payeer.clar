@@ -30,3 +30,9 @@
       (session-id (+ (var-get session-counter) u1))
     )
     (var-set session-counter session-id)
+    (map-insert Sessions session-id {
+      creator: tx-sender,
+      amount: amount,
+      reason: reason,
+      is-resolved: false,
+      chosen-payer: none,
