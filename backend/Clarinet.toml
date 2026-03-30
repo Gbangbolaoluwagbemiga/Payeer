@@ -9,3 +9,9 @@ requirements = []
 path = 'contracts/payeer.clar'
 clarity_version = 4
 epoch = 'latest'
+[repl.analysis]
+passes = [
+    'check_checker',
+    'call_checker',
+]
+
