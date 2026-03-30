@@ -11,3 +11,8 @@ import {
   and make the `simnet` object available globally in the test files.
 
   `vitestSetupFilePath` points to a file in the `@stacks/clarinet-sdk` package that does two things:
+    - run `before` hooks to initialize the simnet and `after` hooks to collect costs and coverage reports.
+    - load custom vitest matchers to work with Clarity values (such as `expect(...).toBeUint()`)
+
+  The `getClarinetVitestsArgv()` will parse options passed to the command `vitest run --`
+    - vitest run -- --manifest ./Clarinet.toml  # pass a custom path
