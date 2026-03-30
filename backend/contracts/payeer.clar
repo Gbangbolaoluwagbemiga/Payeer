@@ -85,3 +85,9 @@
 )
 
 ;; Read only functions
+(define-read-only (get-session (session-id uint))
+  (map-get? Sessions session-id)
+)
+
+(define-read-only (get-participant (session-id uint) (participant-id uint))
+  (map-get? SessionParticipants { session-id: session-id, participant-id: participant-id })
