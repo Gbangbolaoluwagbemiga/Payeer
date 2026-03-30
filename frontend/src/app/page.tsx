@@ -96,3 +96,9 @@ function SpinnerWheel({
           </g>
         );
       })}
+      <circle cx={cx} cy={cy} r={14} fill="#1a1a2e" stroke="rgba(255,255,255,0.2)" strokeWidth="2" />
+      <circle cx={cx} cy={cy} r={7} fill="#00f0ff" opacity="0.8" />
+    </svg>
+  );
+}
+
