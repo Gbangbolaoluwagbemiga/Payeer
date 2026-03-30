@@ -250,3 +250,9 @@ export default function Home() {
                     <Trash2 size={18} />
                   </button>
                 </li>
+              ))}
+            </ul>
+          )}
+
+          {friends.length < 2 && (
+            <div className="hint-text">Add at least 2 friends to spin</div>
