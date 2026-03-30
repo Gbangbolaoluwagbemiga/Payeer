@@ -47,3 +47,9 @@ function SpinnerWheel({
       x: cx + radius * Math.cos(rad),
       y: cy + radius * Math.sin(rad),
     };
+  }
+
+  function slicePath(startAngle: number, endAngle: number) {
+    const start = polarToCartesian(startAngle, r);
+    const end = polarToCartesian(endAngle, r);
+    const largeArc = endAngle - startAngle > 180 ? 1 : 0;
