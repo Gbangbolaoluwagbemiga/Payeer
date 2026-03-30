@@ -27,3 +27,9 @@ export default defineConfig({
     // clarinet handles test isolation by resetting the simnet between tests
     isolate: false,
     maxWorkers: 1,
+    setupFiles: [
+      vitestSetupFilePath,
+      // custom setup files can be added here
+    ],
+    environmentOptions: {
+      clarinet: {
