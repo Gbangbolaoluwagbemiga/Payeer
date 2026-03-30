@@ -58,3 +58,8 @@
       participant-principal: participant,
       participant-name: name
     })
+    
+    (map-set Sessions session-id (merge session { participants-count: new-count }))
+    (ok new-count)
+  )
+)
