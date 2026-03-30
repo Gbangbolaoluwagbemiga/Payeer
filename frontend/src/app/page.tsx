@@ -107,3 +107,9 @@ export default function Home() {
   const [friends, setFriends] = useState<{ id: string; name: string }[]>([]);
   const [newName, setNewName] = useState("");
   const [spinning, setSpinning] = useState(false);
+  const [rotation, setRotation] = useState(0);
+  const [winner, setWinner] = useState<{ name: string; index: number } | null>(null);
+  const [txId, setTxId] = useState<string | null>(null);
+  const [recording, setRecording] = useState(false);
+
+  const addFriend = (e: React.FormEvent) => {
