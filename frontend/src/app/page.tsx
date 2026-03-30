@@ -157,3 +157,8 @@ export default function Home() {
           stringAsciiCV(`Payeer Result: ${winner.name}`) || stringAsciiCV("Payeer Result")
         ],
         network: STACKS_MAINNET,
+        onFinish: (data) => {
+          console.log("Transaction finished:", data.txId);
+          setTxId(data.txId);
+          setRecording(false);
+        },
