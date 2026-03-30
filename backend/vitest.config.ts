@@ -16,3 +16,9 @@ import {
 
   The `getClarinetVitestsArgv()` will parse options passed to the command `vitest run --`
     - vitest run -- --manifest ./Clarinet.toml  # pass a custom path
+    - vitest run -- --coverage --costs          # collect coverage and cost reports
+*/
+
+export default defineConfig({
+  test: {
+    // use vitest-environment-clarinet
