@@ -179,3 +179,8 @@ export default function Home() {
   };
 
   const shortAddress = address ? `${address.slice(0, 6)}...${address.slice(-4)}` : null;
+
+  return (
+    <main className="container">
+      <div className="header-bar">
+        <div className="logo-wrap">
