@@ -47,3 +47,8 @@
   (let
     (
       (session (unwrap! (map-get? Sessions session-id) (err u404)))
+      (count (get participants-count session))
+      (new-count (+ count u1))
+    )
+    (asserts! (is-eq tx-sender (get creator session)) (err u403))
+    ;; Must not be resolved
