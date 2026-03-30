@@ -9,3 +9,7 @@ deployment_fee_rate = 10
 #
 #     clarinet deployments encrypt
 #
+# Enter your seed phrase and a password, then paste the encrypted mnemonic here.
+#
+# Otherwise, use the mnemonic field below:
+# mnemonic = ""
