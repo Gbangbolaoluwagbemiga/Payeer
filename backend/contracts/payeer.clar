@@ -19,3 +19,9 @@
   { session-id: uint, participant-id: uint }
   {
     participant-principal: principal,
+    participant-name: (string-ascii 50)
+  }
+)
+
+;; create a new session
+(define-public (create-session (amount uint) (reason (string-ascii 50)))
