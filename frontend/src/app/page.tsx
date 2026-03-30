@@ -228,3 +228,9 @@ export default function Home() {
               />
               <button type="submit">
                 <Plus size={20} />
+              </button>
+            </div>
+          </form>
+
+          {friends.length > 0 && (
+            <ul className="friends-list">
