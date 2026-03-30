@@ -113,3 +113,8 @@ export default function Home() {
   const [recording, setRecording] = useState(false);
 
   const addFriend = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (newName.trim() === "") return;
+    setFriends([...friends, { id: crypto.randomUUID(), name: newName.trim() }]);
+    setNewName("");
+  };
