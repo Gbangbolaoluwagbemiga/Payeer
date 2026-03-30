@@ -212,3 +212,8 @@ export default function Home() {
       <div className="hero">
         <h1>Who&apos;s Paying?</h1>
         <p>Add your friends and let the wheel decide fairly on-chain.</p>
+      </div>
+
+      <div className="main-content">
+        <div className="panel">
+          <h2>1. Add Friends</h2>
