@@ -118,3 +118,9 @@ export default function Home() {
     setFriends([...friends, { id: crypto.randomUUID(), name: newName.trim() }]);
     setNewName("");
   };
+
+  const removeFriend = (id: string) => {
+    setFriends(friends.filter((f) => f.id !== id));
+  };
+
+  const spinWheel = () => {
